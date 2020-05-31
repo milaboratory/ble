@@ -91,6 +91,9 @@ func open(fd, id int) (*Socket, error) {
 	if err := ioctl(uintptr(fd), hciDownDevice, uintptr(id)); err != nil {
 		return nil, errors.Wrap(err, "can't down device")
 	}
+	if err := ioctl(uintptr(fd), hciResetDevice, uintptr(id)); err != nil {
+		return nil, errors.Wrap(err, "can't reset device")
+	}
 	if err := ioctl(uintptr(fd), hciUpDevice, uintptr(id)); err != nil {
 		return nil, errors.Wrap(err, "can't up device")
 	}
